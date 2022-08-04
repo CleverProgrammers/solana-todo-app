@@ -5,12 +5,17 @@ const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
     const handleMarkTodo = () => {
         // Only allow unchecked todo to be marked
         if (marked) return
-
-        action(publicKey, idx)
+       
+        action(idx)
+        
     }
 
     const handleRemoveTodo = () => {
-        action(publicKey, idx)
+        // Only allow checked todo to be removed
+        if(!marked) return
+
+        action(idx)
+
     }
 
     return (
@@ -26,7 +31,7 @@ const TodoItem = ({ idx, content, marked, dateline, publicKey, action }) => {
                 )}
             </div>
             <div className={styles.iconContainer}>
-                <TrashIcon onClick={handleRemoveTodo} className={styles.trashIcon} />
+                <TrashIcon onClick={handleRemoveTodo} className={`${styles.trashIcon} ${!marked && styles.checked}`} />
             </div>
         </li>
     )
